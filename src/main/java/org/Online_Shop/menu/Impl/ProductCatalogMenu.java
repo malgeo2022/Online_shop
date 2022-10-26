@@ -7,6 +7,7 @@ import org.Online_Shop.menu.Menu;
 import org.Online_Shop.services.Impl.DefaultProductManagementService;
 import org.Online_Shop.services.ProductManagementService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ProductCatalogMenu implements Menu {
@@ -70,7 +71,7 @@ public class ProductCatalogMenu implements Menu {
     }
 
     private void printProductsToConsole() {
-        Product[] products = productManagementService.getProducts();
+        List<Product> products = productManagementService.getProducts();
         for (Product product : products) {
             System.out.println(product);
         }
