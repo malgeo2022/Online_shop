@@ -3,16 +3,16 @@ package org.Online_Shop.menu.Impl;
 import org.Online_Shop.configs.ApplicationContext;
 import org.Online_Shop.menu.Menu;
 
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class SettingsMenu implements Menu {
-    private static final String SETTINGS = "1. Change Password" + System.lineSeparator()
-            + "2. Change Email";
-
     private ApplicationContext context;
+    private ResourceBundle rb;
 
     {
         context = ApplicationContext.getInstance();
+        rb = ResourceBundle.getBundle(RESOURCE_BUNDLE_BASE_NAME);
     }
 
     @Override
@@ -26,9 +26,8 @@ public class SettingsMenu implements Menu {
                 new MainMenu().start();
                 return;
             } else {
-                System.out.println(SETTINGS);
-                System.out.print(
-                        "Please, enter option or type 'menu' to navigate back to the main menu: ");
+                System.out.println(rb.getString("settings.options"));
+                System.out.print(rb.getString("enter.option"));
                 Scanner sc = new Scanner(System.in);
                 String userInput = sc.next();
 
@@ -46,7 +45,7 @@ public class SettingsMenu implements Menu {
                         menuToNavigate = new ChangeEmailMenu();
                         break mainLoop;
                     default:
-                        System.out.println("Only 1, 2 is allowed. Try one more time");
+                        System.out.println(rb.getString("settings.option.validation.msg"));
                         continue;
                 }
             }
@@ -58,7 +57,6 @@ public class SettingsMenu implements Menu {
 
     @Override
     public void printMenuHeader() {
-        System.out.println("***** SETTINGS *****");
+        System.out.println(rb.getString("settings.menu.header"));
     }
-
 }

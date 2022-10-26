@@ -3,6 +3,8 @@ package org.Online_Shop.services.Impl;
 import org.Online_Shop.enteties.Impl.DefaultProduct;
 import org.Online_Shop.enteties.Product;
 import org.Online_Shop.services.ProductManagementService;
+import org.Online_Shop.storage.ProductStoringService;
+import org.Online_Shop.storage.impl.DefaultProductStoringService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,10 +17,20 @@ public class DefaultProductManagementService implements ProductManagementService
 
     private static List<Product> products;
 
+    private static ProductStoringService productStoringService;
+
     static {
-        initProducts();
+        productStoringService = new DefaultProductStoringService();
+        loadProductsFromStorage();
     }
 
+    public static void loadProductsFromStorage() {
+        products = productStoringService.loadProducts();
+    }
+
+    /**
+     * @deprecated use loadProductsFromStorage instead
+     */
     private static void initProducts() {
         products = new ArrayList<>(Arrays.asList(
                 new DefaultProduct(1, "Hardwood Oak Suffolk Internal Door", "Doors", 109.99),
@@ -37,8 +49,6 @@ public class DefaultProductManagementService implements ProductManagementService
     private DefaultProductManagementService() {
 
     }
-
-
 
     public static ProductManagementService getInstance() {
         if (instance == null) {

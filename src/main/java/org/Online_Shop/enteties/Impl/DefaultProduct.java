@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 
 public class DefaultProduct implements Product {
 
-   private int id;
-   private String productName;
-   private String categoryName;
-   private double price;
+    private int id;
+    private String productName;
+    private String categoryName;
+    private double price;
 
     public DefaultProduct() {
     }
@@ -22,23 +22,19 @@ public class DefaultProduct implements Product {
     }
 
     @Override
+    public String toString() {
+        return "Product id=" + id + ", product name=" + productName
+                + ", category name=" + categoryName + ", price=" + price;
+    }
+
+    @Override
     public int getId() {
-        return id;
+        return this.id;
     }
 
     @Override
     public String getProductName() {
-        return productName;
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultProduct{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", price=" + price +
-                '}';
+        return this.productName;
     }
 
     @Override
@@ -55,4 +51,5 @@ public class DefaultProduct implements Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
 }

@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class CustomProductComparator implements Comparator<Product> {
 
     @Override
-    public int compare(Product product1, Product product2){
+    public int compare(Product product1, Product product2) {
         int result = product1.getCategoryName().compareTo(product2.getCategoryName());
         if (result == 0) {
             double priceDelta = product1.getPrice() - product2.getPrice();
@@ -18,4 +18,5 @@ public class CustomProductComparator implements Comparator<Product> {
         }
         return result;
     }
+
 }

@@ -2,20 +2,21 @@ package org.Online_Shop.services.Impl;
 
 import org.Online_Shop.enteties.Order;
 import org.Online_Shop.services.OrderManagementService;
+import org.Online_Shop.storage.OrderStoringService;
+import org.Online_Shop.storage.impl.DefaultOrderStoringService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DefaultOrderManagementService implements OrderManagementService {
 
     private static DefaultOrderManagementService instance;
-
     private List<Order> orders;
+    private OrderStoringService orderStoringService;
 
     {
-        orders = new ArrayList<>();
+        orderStoringService = DefaultOrderStoringService.getInstance();
+        orders = orderStoringService.loadOrders();
     }
 
     public static OrderManagementService getInstance() {
@@ -30,25 +31,24 @@ public class DefaultOrderManagementService implements OrderManagementService {
         if (order == null) {
             return;
         }
-      orders.add(order);
+        orders.add(order);
+        orderStoringService.saveOrders(orders);
     }
 
     @Override
     public List<Order> getOrdersByUserId(int userId) {
-       List<Order> userOrders = new ArrayList<>();
-       for (Order order : orders){
-           if (order != null && order.getCustomerId() == userId){
-               userOrders.add(order);
-           }
-       }
-
-        return userOrders;
+        return orderStoringService.loadOrders().stream()
+                .filter(Objects::nonNull)
+                .filter(order -> order.getCustomerId() == userId)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Order> getOrders() {
+        if (orders == null || orders.size() == 0) {
+            orders = orderStoringService.loadOrders();
+        }
         return this.orders;
-
     }
 
     void clearServiceState() {

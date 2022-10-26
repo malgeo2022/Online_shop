@@ -10,9 +10,7 @@ import java.util.List;
 public class DefaultCart implements Cart {
 
 
-    //private static final int DEFAULT_PRODUCT_CAPACITY = 10;
     private List<Product> products;
-    //private int lastIndex;
 
     {
         products = new ArrayList<>();
@@ -20,25 +18,25 @@ public class DefaultCart implements Cart {
 
     @Override
     public boolean isEmpty() {
-       return products.isEmpty();
+        return products.isEmpty();
     }
-
 
     @Override
     public void addProduct(Product product) {
-          if (product == null){
-              return;
-          }
-          products.add(product);
+        if (product == null) {
+            return;
+        }
+        products.add(product);
     }
 
     @Override
     public List<Product> getProducts() {
-         return this.products;
+//		return Collections.unmodifiableList(this.products); // returns unmodifiable List
+        return this.products;
     }
 
     @Override
     public void clear() {
-            products.clear();
+        products.clear();
     }
 }

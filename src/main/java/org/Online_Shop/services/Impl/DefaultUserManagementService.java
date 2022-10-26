@@ -1,7 +1,9 @@
 package org.Online_Shop.services.Impl;
 
+import org.Online_Shop.enteties.Impl.DefaultUser;
 import org.Online_Shop.enteties.User;
 import org.Online_Shop.services.UserManagementService;
+import org.Online_Shop.storage.impl.DefaultUserStoringService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,11 +15,10 @@ public class DefaultUserManagementService implements UserManagementService {
     private static final String NO_ERROR_MESSAGE = "";
 
     private static DefaultUserManagementService instance;
+    private static DefaultUserStoringService defaultUserStoringService;
 
-    private List<User> users;
-
-    {
-        users = new ArrayList<>();
+    static {
+        defaultUserStoringService = DefaultUserStoringService.getInstance();
     }
 
     private DefaultUserManagementService() {
@@ -34,11 +35,12 @@ public class DefaultUserManagementService implements UserManagementService {
             return errorMessage;
         }
 
-        users.add(user);
+        defaultUserStoringService.saveUser(user);
         return NO_ERROR_MESSAGE;
     }
 
     private String checkUniqueEmail(String email) {
+        List<User> users = defaultUserStoringService.loadUsers();
         if (email == null || email.isEmpty()) {
             return EMPTY_EMAIL_ERROR_MESSAGE;
         }
@@ -62,22 +64,21 @@ public class DefaultUserManagementService implements UserManagementService {
 
     @Override
     public List<User> getUsers() {
-        return this.users;
+        List<User> users = defaultUserStoringService.loadUsers();
+        DefaultUser.setCounter(users.stream()
+                .mapToInt(user -> user.getId())
+                .max().getAsInt());
+        return users;
     }
-
 
     @Override
     public User getUserByEmail(String userEmail) {
-        for (User user : users) {
+        for (User user : defaultUserStoringService.loadUsers()) {
             if (user != null && user.getEmail().equalsIgnoreCase(userEmail)) {
                 return user;
             }
         }
         return null;
-    }
-
-    void clearServiceState() {
-        users.clear();
     }
 
 

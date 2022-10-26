@@ -3,14 +3,18 @@ package org.Online_Shop.menu.Impl;
 import org.Online_Shop.configs.ApplicationContext;
 import org.Online_Shop.menu.Menu;
 
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class ChangePasswordMenu implements Menu {
 
     private ApplicationContext context;
+    private ResourceBundle rb;
 
     {
         context = ApplicationContext.getInstance();
+        rb = ResourceBundle.getBundle(RESOURCE_BUNDLE_BASE_NAME);
+
     }
 
     @Override
@@ -19,13 +23,13 @@ public class ChangePasswordMenu implements Menu {
         Scanner sc = new Scanner(System.in);
         String userInput = sc.next();
         context.getLoggedInUser().setPassword(userInput);
-        System.out.println("Your Password has been successfully changed");
+        System.out.println(rb.getString("change.password.msg"));
         new MainMenu().start();
     }
 
     @Override
     public void printMenuHeader() {
-        System.out.println("*****CHANGE PASSWORD");
-        System.out.println("Enter new Password: ");
+        System.out.println(rb.getString("change.password.header"));
+        System.out.print(rb.getString("enter.new.pass.cta"));
     }
 }
