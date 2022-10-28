@@ -1,25 +1,25 @@
 package org.Online_Shop.services.Impl;
 
-import org.Online_Shop.enteties.Order;
-import org.Online_Shop.services.OrderManagementService;
-import org.Online_Shop.storage.OrderStoringService;
-import org.Online_Shop.storage.impl.DefaultOrderStoringService;
+import org.Online_Shop.enteties.Purchase;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DefaultOrderManagementService implements OrderManagementService {
+public class DefaultOrderManagementService implements PurchaseManagementService {
+
+    private static final String ORDERS_DATA_FILE_NAME = "orders.data";
+    private static final String CURRENT_TASK_RESOURCE_FOLDER = "finaltask";
+    private static final String RESOURCES_FOLDER = "resources";
 
     private static DefaultOrderManagementService instance;
-    private List<Order> orders;
-    private OrderStoringService orderStoringService;
+    private List<Purchase> orders;
 
     {
-        orderStoringService = DefaultOrderStoringService.getInstance();
-        orders = orderStoringService.loadOrders();
+        orders = loadOrders();
     }
 
-    public static OrderManagementService getInstance() {
+    public static PurchaseManagementService getInstance() {
         if (instance == null) {
             instance = new DefaultOrderManagementService();
         }
@@ -27,26 +27,26 @@ public class DefaultOrderManagementService implements OrderManagementService {
     }
 
     @Override
-    public void addOrder(Order order) {
+    public void addPurchase(Purchase order) {
         if (order == null) {
             return;
         }
         orders.add(order);
-        orderStoringService.saveOrders(orders);
+        saveOrders(orders);
     }
 
     @Override
-    public List<Order> getOrdersByUserId(int userId) {
-        return orderStoringService.loadOrders().stream()
+    public List<Purchase> getPurchasesByUserId(int userId) {
+        return loadOrders().stream()
                 .filter(Objects::nonNull)
                 .filter(order -> order.getCustomerId() == userId)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Order> getOrders() {
+    public List<Purchase> getPurchases() {
         if (orders == null || orders.size() == 0) {
-            orders = orderStoringService.loadOrders();
+            orders = loadOrders();
         }
         return this.orders;
     }
@@ -54,4 +54,29 @@ public class DefaultOrderManagementService implements OrderManagementService {
     void clearServiceState() {
         orders.clear();
     }
+
+
+    private void saveOrders(List<Purchase> orders) {
+        try (var oos = new ObjectOutputStream(new FileOutputStream(
+                RESOURCES_FOLDER + File.separator + CURRENT_TASK_RESOURCE_FOLDER
+                        + File.separator + ORDERS_DATA_FILE_NAME
+        ))) {
+            oos.writeObject(orders);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<Purchase> loadOrders() {
+        try (var ois = new ObjectInputStream(new FileInputStream(
+                RESOURCES_FOLDER + File.separator + CURRENT_TASK_RESOURCE_FOLDER
+                        + File.separator + ORDERS_DATA_FILE_NAME
+        ))) {
+            return (List<Purchase>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

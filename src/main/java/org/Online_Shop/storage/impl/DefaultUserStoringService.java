@@ -1,7 +1,7 @@
 package org.Online_Shop.storage.impl;
 
-import org.Online_Shop.enteties.Impl.DefaultUser;
 import org.Online_Shop.enteties.User;
+import org.Online_Shop.enteties.impl.DefaultUser;
 import org.Online_Shop.storage.UserStoringService;
 
 import java.io.IOException;

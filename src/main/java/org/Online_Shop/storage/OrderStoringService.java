@@ -1,11 +1,11 @@
 package org.Online_Shop.storage;
 
-import org.Online_Shop.enteties.Order;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.util.List;
 
 public interface OrderStoringService {
-    void saveOrders(List<Order> order);
+    void saveOrders(List<MysqlxCrud.Order> order);
 
-    List<Order> loadOrders();
+    List<MysqlxCrud.Order> loadOrders();
 }

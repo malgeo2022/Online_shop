@@ -1,7 +1,7 @@
 package org.Online_Shop.storage.impl;
 
-import org.Online_Shop.enteties.Impl.DefaultProduct;
 import org.Online_Shop.enteties.Product;
+import org.Online_Shop.enteties.impl.DefaultProduct;
 import org.Online_Shop.storage.ProductStoringService;
 
 import java.io.IOException;

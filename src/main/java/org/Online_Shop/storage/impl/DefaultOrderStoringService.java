@@ -1,6 +1,6 @@
 package org.Online_Shop.storage.impl;
 
-import org.Online_Shop.enteties.Order;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.Online_Shop.storage.OrderStoringService;
 
 import java.io.*;
@@ -17,7 +17,7 @@ public class DefaultOrderStoringService implements OrderStoringService {
     }
 
     @Override
-    public void saveOrders(List<Order> orders) {
+    public void saveOrders(List<MysqlxCrud.Order> orders) {
         try (var oos = new ObjectOutputStream(new FileOutputStream(
                 RESOURCES_FOLDER + File.separator + CURRENT_TASK_RESOURCE_FOLDER
                         + File.separator + ORDERS_DATA_FILE_NAME
@@ -29,12 +29,12 @@ public class DefaultOrderStoringService implements OrderStoringService {
     }
 
     @Override
-    public List<Order> loadOrders() {
+    public List<MysqlxCrud.Order> loadOrders() {
         try (var ois = new ObjectInputStream(new FileInputStream(
                 RESOURCES_FOLDER + File.separator + CURRENT_TASK_RESOURCE_FOLDER
                         + File.separator + ORDERS_DATA_FILE_NAME
         ))) {
-            return (List<Order>) ois.readObject();
+            return (List<MysqlxCrud.Order>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

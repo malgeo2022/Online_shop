@@ -1,13 +1,22 @@
 package org.Online_Shop.enteties;
 
-public interface Product {
+import java.io.Serializable;
 
-        int getId();
+public interface Product extends Serializable {
 
-        String getProductName();
-        String getCategoryName();
+	int getId();
+	
+	void setId(int id);
 
-        double getPrice();
+	String getProductName();
+	
+	void setProductName(String productName);
+	
+	String getCategoryName();
+	
+	void setCategoryName(String categoryName);
+	
+	double getPrice();
 
-        void setPrice(double price);
+	void setPrice(double price);
 }

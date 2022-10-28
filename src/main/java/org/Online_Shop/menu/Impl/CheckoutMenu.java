@@ -1,25 +1,24 @@
 package org.Online_Shop.menu.Impl;
 
 import org.Online_Shop.configs.ApplicationContext;
-import org.Online_Shop.enteties.Impl.DefaultOrder;
-import org.Online_Shop.enteties.Order;
+import org.Online_Shop.enteties.Purchase;
+import org.Online_Shop.enteties.impl.DefaultPurchase;
 import org.Online_Shop.menu.Menu;
-import org.Online_Shop.services.Impl.DefaultOrderManagementService;
-import org.Online_Shop.services.OrderManagementService;
+import org.Online_Shop.services.Impl.MySqlPurchaseManagementService;
+import org.Online_Shop.services.Impl.PurchaseManagementService;
 
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class CheckoutMenu implements Menu {
 
+    private static final String CONRIMATION_CREDIT_CARD_WORD = "confirm";
+
     private ApplicationContext context;
-    private OrderManagementService orderManagementService;
-    private ResourceBundle rb;
+    private PurchaseManagementService purchaseManagementService;
 
     {
         context = ApplicationContext.getInstance();
-        orderManagementService = DefaultOrderManagementService.getInstance();
-        rb = ResourceBundle.getBundle(RESOURCE_BUNDLE_BASE_NAME);
+        purchaseManagementService = new MySqlPurchaseManagementService();
     }
 
     @Override
@@ -36,13 +35,17 @@ public class CheckoutMenu implements Menu {
             break;
         }
 
-        System.out.println(rb.getString("thank.you.msg"));
+        System.out.println("Thanks a lot for your purchase. Details about order delivery are sent to your email.");
         new MainMenu().start();
 
     }
 
     private boolean createOrder(String creditCardNumber) {
-        Order order = new DefaultOrder();
+        Purchase order = new DefaultPurchase();
+        if (creditCardNumber.equalsIgnoreCase(CONRIMATION_CREDIT_CARD_WORD)) {
+            creditCardNumber = context.getLoggedInUser().getCreditCard();
+        }
+
         if (!order.isCreditCardNumberValid(creditCardNumber)) {
             return false;
         }
@@ -50,14 +53,20 @@ public class CheckoutMenu implements Menu {
         order.setCreditCardNumber(creditCardNumber);
         order.setProducts(context.getSessionCart().getProducts());
         order.setCustomerId(context.getLoggedInUser().getId());
-        orderManagementService.addOrder(order);
+        purchaseManagementService.addPurchase(order);
         return true;
     }
 
     @Override
     public void printMenuHeader() {
-        System.out.println(rb.getString("checkout.menu.header"));
-        System.out.print(rb.getString("enter.credit.card.number.cta"));
+        System.out.println("***** CHECKOUT *****");
+        String creditCard = context.getLoggedInUser().getCreditCard();
+        if (creditCard != null && !creditCard.isEmpty()) {
+            System.out.println("Confirm your credit card number \"" + creditCard + "\" by writing \"" + CONRIMATION_CREDIT_CARD_WORD + "\": ");
+        } else {
+            System.out.print(
+                    "Enter your credit card number without spaces and press enter to confirm purchase: ");
+        }
     }
 
 }

@@ -1,10 +1,7 @@
 package org.Online_Shop.menu.Impl;
 
 import org.Online_Shop.configs.ApplicationContext;
-import org.Online_Shop.enteties.User;
 import org.Online_Shop.menu.Menu;
-import org.Online_Shop.services.Impl.DefaultUserManagementService;
-import org.Online_Shop.services.UserManagementService;
 
 import java.util.ResourceBundle;
 

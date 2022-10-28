@@ -1,6 +1,4 @@
-package org.Online_Shop.enteties.Impl;
-
-import org.Online_Shop.enteties.User;
+package org.Online_Shop.enteties;
 
 import java.util.Objects;
 
@@ -12,6 +10,9 @@ public class UserForHashTables implements User {
     private String lastName;
     private String password;
     private String email;
+    private String roleName;
+    private double money;
+    private String creditCard;
 
     {
         id = ++userCounter;
@@ -109,5 +110,47 @@ public class UserForHashTables implements User {
                 && Objects.equals(password, other.password);
     }
 
+    @Override
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getRoleName() {
+        return this.roleName;
+    }
+
+    @Override
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    @Override
+    public String getCreditCard() {
+        return this.creditCard;
+    }
+
+    @Override
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
+    }
 
 }

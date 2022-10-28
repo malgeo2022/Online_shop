@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface Cart {
 
-    boolean isEmpty();
+	boolean isEmpty();
 
-    void addProduct(Product productById);
+	void addProduct(Product productById);
 
-    List<Product> getProducts();
+	List<Product> getProducts();
 
-    void clear();
-
+	void clear();
 
 }
+

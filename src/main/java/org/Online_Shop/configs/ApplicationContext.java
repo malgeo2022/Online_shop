@@ -1,8 +1,8 @@
 package org.Online_Shop.configs;
 
 import org.Online_Shop.enteties.Cart;
-import org.Online_Shop.enteties.Impl.DefaultCart;
 import org.Online_Shop.enteties.User;
+import org.Online_Shop.enteties.impl.DefaultCart;
 import org.Online_Shop.menu.Menu;
 
 public class ApplicationContext {
@@ -47,6 +47,5 @@ public class ApplicationContext {
         }
         return this.sessionCart;
     }
-
 
 }
