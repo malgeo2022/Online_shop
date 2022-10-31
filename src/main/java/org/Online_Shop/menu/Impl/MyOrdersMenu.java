@@ -1,10 +1,8 @@
 package org.Online_Shop.menu.Impl;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.Online_Shop.configs.ApplicationContext;
 import org.Online_Shop.enteties.Purchase;
 import org.Online_Shop.menu.Menu;
-import org.Online_Shop.services.Impl.DefaultOrderManagementService;
 import org.Online_Shop.services.Impl.MySqlPurchaseManagementService;
 import org.Online_Shop.services.Impl.PurchaseManagementService;
 

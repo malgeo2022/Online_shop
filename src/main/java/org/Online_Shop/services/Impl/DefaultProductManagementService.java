@@ -3,8 +3,6 @@ package org.Online_Shop.services.Impl;
 import org.Online_Shop.enteties.Product;
 import org.Online_Shop.enteties.impl.DefaultProduct;
 import org.Online_Shop.services.ProductManagementService;
-import org.Online_Shop.storage.ProductStoringService;
-import org.Online_Shop.storage.impl.DefaultProductStoringService;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -3,7 +3,6 @@ package org.Online_Shop.services.Impl;
 import org.Online_Shop.enteties.User;
 import org.Online_Shop.enteties.impl.DefaultUser;
 import org.Online_Shop.services.UserManagementService;
-import org.Online_Shop.storage.impl.DefaultUserStoringService;
 import org.Online_Shop.utils.mail.MailSender;
 import org.Online_Shop.utils.mail.impl.DefaultMailSender;
 
