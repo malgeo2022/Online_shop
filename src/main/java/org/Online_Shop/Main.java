@@ -3,15 +3,17 @@ package org.Online_Shop;
 import org.Online_Shop.dao.UserDao;
 import org.Online_Shop.dao.impl.MySqlJdbcUserDao;
 import org.Online_Shop.dto.UserDto;
+import org.Online_Shop.menu.Impl.MainMenu;
+import org.Online_Shop.menu.Menu;
 
 public class Main {
 
     public static final String EXIT_COMMAND = "exit";
 
         public static void main(String[] args) {
-//            Menu mainMenu = new MainMenu();
-//            mainMenu.start();
-//            System.out.println("Nothing happens !");
+            Menu mainMenu = new MainMenu();
+            mainMenu.start();
+            System.out.println("Nothing happens !");
 
             UserDao userDao = new MySqlJdbcUserDao();
             UserDto user = userDao.getUserById(42);
@@ -45,6 +47,8 @@ public class Main {
 
             System.out.println(user1.getId());
             System.out.println(user1.getLastName());
+//            SignInMenu signInMenu = new SignInMenu();
+//            signInMenu.printMenuHeader();
 
         }
     }

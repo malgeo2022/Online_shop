@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class DefaultProductManagementService implements ProductManagementService {
 
-    private static final String PRODUCTS_INFO_STORAGE = "products.csv";
+    private static final String PRODUCTS_INFO_STORAGE = "finaltask/products.csv";
     private static final String CURRENT_TASK_RESOURCE_FOLDER = "finaltask";
     private static final String RESOURCES_FOLDER = "resources";
     private static final int PRODUCT_PRICE_INDEX = 3;

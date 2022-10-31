@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class DefaultOrderManagementService implements PurchaseManagementService {
 
-    private static final String ORDERS_DATA_FILE_NAME = "orders.data";
+    private static final String ORDERS_DATA_FILE_NAME = "finaltask/orders.data";
     private static final String CURRENT_TASK_RESOURCE_FOLDER = "finaltask";
     private static final String RESOURCES_FOLDER = "resources";
 
